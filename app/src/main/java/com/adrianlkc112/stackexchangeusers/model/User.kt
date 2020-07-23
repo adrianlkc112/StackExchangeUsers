@@ -1,8 +1,7 @@
 package com.adrianlkc112.stackexchangeusers.model
 
 import com.adrianlkc112.stackexchangeusers.enum.UserType
-import java.time.LocalDateTime
-import java.util.*
+import java.io.Serializable
 
 data class User (
     val about_me: String?,
@@ -32,4 +31,4 @@ data class User (
     val user_type: UserType,
     val view_count: Int,
     val website_url: String?
-)
+): Serializable

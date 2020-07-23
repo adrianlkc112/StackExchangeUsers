@@ -4,14 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
     tools:context=".activity.MainActivity">
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar"/>
 
     <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_below="@id/toolbar_layout"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/button_search"/>
 
     <EditText
@@ -21,6 +27,7 @@
         android:hint="@string/main_search_hint"
         android:inputType="text"
         android:imeOptions="actionSearch"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@id/search_button"
         android:layout_alignBaseline="@id/search_button"/>
@@ -30,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/input_search_edittext"
-        android:layout_marginTop="8dp"/>
+        android:layout_margin="8dp"
+        android:background="@drawable/user_list_cell_border"/>
 
 </RelativeLayout>

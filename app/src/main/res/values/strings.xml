@@ -4,10 +4,20 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_search">Search</string>
+    <string name="button_back">Back</string>
 
     <string name="main_search_hint">Search by user name</string>
     <string name="main_reputation_title">Reputation</string>
     <string name="main_user_name_title">User Name</string>
+
+    <string name="user_details_page_title">User</string>
+    <string name="user_details_avatar">Avatar</string>
+    <string name="user_details_user_name">User Name</string>
+    <string name="user_details_reputation">Reputation</string>
+    <string name="user_details_badges">Badges</string>
+    <string name="user_details_location">Location</string>
+    <string name="user_details_age">Age</string>
+    <string name="user_details_create_date">Create Date</string>
 
     <string name="err_msg_empty_user_name">Please input user name</string>
     <string name="err_msg_fail_users">Fail to get Users from Server, please retry later.</string>

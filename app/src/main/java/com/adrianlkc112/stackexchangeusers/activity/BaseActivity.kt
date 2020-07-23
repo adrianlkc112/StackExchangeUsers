@@ -1,16 +1,36 @@
 package com.adrianlkc112.stackexchangeusers.activity
 
 import android.content.DialogInterface
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.adrianlkc112.stackexchangeusers.R
+import com.adrianlkc112.stackexchangeusers.util.LogD
 import com.kaopiz.kprogresshud.KProgressHUD
-
+import kotlinx.android.synthetic.main.toolbar.*
 
 open class BaseActivity : AppCompatActivity() {
 
     private var hud: KProgressHUD? = null
     private var alertDialog: AlertDialog? = null
+
+    override fun onStart() {
+        super.onStart()
+        initToolBar()
+    }
+
+    private fun initToolBar() {
+        if(this !is MainActivity) {
+            setSupportActionBar(toolbar)
+
+            back_button.setOnClickListener {
+                finish()
+            }
+        } else {
+            back_button.visibility = View.GONE
+        }
+    }
 
     //Progress Dialog
     protected fun showLoading(label: String = getString(R.string.message_processing), cancellable: Boolean = false) {

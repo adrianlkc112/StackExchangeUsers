@@ -1,8 +1,8 @@
 package com.adrianlkc112.stackexchangeusers.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView.OnEditorActionListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
@@ -10,6 +10,7 @@ import com.adrianlkc112.stackexchangeusers.adapter.UserListAdapter
 import com.adrianlkc112.stackexchangeusers.callback.UserListCallback
 import com.adrianlkc112.stackexchangeusers.controller.MainController
 import com.adrianlkc112.stackexchangeusers.extensions.afterObserveOn
+import com.adrianlkc112.stackexchangeusers.model.User
 import com.adrianlkc112.stackexchangeusers.server.APIService
 import com.adrianlkc112.stackexchangeusers.util.LogD
 import com.adrianlkc112.stackexchangeusers.util.LogE
@@ -77,6 +78,11 @@ class MainActivity : BaseActivity(), UserListCallback {
     }
 
     override fun onUserListClick(user_id: Int) {
-        LogD("Test User list clicked: ${user_id} , ${mainController.getSelectedUser(user_id)}")
+        val user = mainController.getSelectedUser(user_id)
+        LogD("Test User list clicked: ${user_id} , $user")
+
+        val intent = Intent(this, UserDetailsActivity::class.java)
+        intent.putExtra(UserDetailsActivity.ARG_USER, user)
+        startActivity(intent)
     }
 }
