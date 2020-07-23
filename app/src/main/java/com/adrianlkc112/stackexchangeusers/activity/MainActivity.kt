@@ -5,14 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.adapter.UserListAdapter
+import com.adrianlkc112.stackexchangeusers.callback.UserListCallback
+import com.adrianlkc112.stackexchangeusers.controller.MainController
 import com.adrianlkc112.stackexchangeusers.extensions.afterObserveOn
-import com.adrianlkc112.stackexchangeusers.model.User
 import com.adrianlkc112.stackexchangeusers.server.APIService
+import com.adrianlkc112.stackexchangeusers.util.LogD
 import com.adrianlkc112.stackexchangeusers.util.LogE
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
-    private val userList = ArrayList<User>()
+class MainActivity : BaseActivity(), UserListCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +23,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initLayout() {
-        setupUserList()
+        initUserListView()
 
         search_button.setOnClickListener {
             if(input_search_edittext.text.isNotEmpty()) {
@@ -33,9 +34,9 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun setupUserList() {
+    private fun initUserListView() {
         user_listview.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val userListAdapter = UserListAdapter(this, userList)
+        val userListAdapter = UserListAdapter(this, MainController.userViewModelList, this)
         user_listview.adapter = userListAdapter
     }
 
@@ -47,8 +48,7 @@ class MainActivity : BaseActivity() {
                 hideLoading()
             }.subscribe(
                 { response ->
-                    userList.clear()
-                    userList.addAll(response.items)
+                    MainController.setUserDataListAndConvertViewModel(this@MainActivity, response.items)
                     user_listview.adapter!!.notifyDataSetChanged()
                 },
                 { error ->
@@ -57,5 +57,9 @@ class MainActivity : BaseActivity() {
                 }
             )
         }
+    }
+
+    override fun onUserListClick(user_id: Int) {
+        LogD("Test User list clicked: ${user_id} , ${MainController.getSelectedUser(user_id)}")
     }
 }

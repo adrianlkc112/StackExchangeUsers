@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="transparent">#00FFFFFF</color>
+    <color name="userListSelected">#40e6cc85</color>
 </resources>
