@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">StackExchangeUsers</string>
+    <string name="message_processing">Processing&#8230;</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+
+    <string name="main_search_hint">Search by user name</string>
+
+    <string name="err_msg_empty_user_name">Username cannot be empty</string>
+    <string name="err_msg_fail_users">Fail to get Users from Server, please retry later.</string>
+</resources>
