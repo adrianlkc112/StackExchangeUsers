@@ -17,6 +17,7 @@ data class User (
     val last_access_date: Long,
     val last_modified_date: Long?,
     val link: String,
+    val location: String?,
     val profile_image: String,
     val question_count: Int,
     val reputation: Int,
