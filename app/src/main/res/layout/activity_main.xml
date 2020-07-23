@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/main_search_hint"
         android:inputType="text"
+        android:imeOptions="actionSearch"
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@id/search_button"
         android:layout_alignBaseline="@id/search_button"/>

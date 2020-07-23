@@ -1,6 +1,8 @@
 package com.adrianlkc112.stackexchangeusers.activity
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
@@ -12,6 +14,7 @@ import com.adrianlkc112.stackexchangeusers.server.APIService
 import com.adrianlkc112.stackexchangeusers.util.LogD
 import com.adrianlkc112.stackexchangeusers.util.LogE
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity(), UserListCallback {
 
@@ -26,11 +29,14 @@ class MainActivity : BaseActivity(), UserListCallback {
         initUserListView()
 
         search_button.setOnClickListener {
-            if(input_search_edittext.text.isNotEmpty()) {
-                getUserListFromServer(input_search_edittext.text.toString())
-            } else {
-                showMessageDialog(message = getString(R.string.err_msg_empty_user_name))
+            doSearch()
+        }
+
+        input_search_edittext.setOnEditorActionListener{ v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                doSearch()
             }
+            false
         }
     }
 
@@ -38,6 +44,14 @@ class MainActivity : BaseActivity(), UserListCallback {
         user_listview.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val userListAdapter = UserListAdapter(this, MainController.userViewModelList, this)
         user_listview.adapter = userListAdapter
+    }
+
+    private fun doSearch() {
+        if(input_search_edittext.text.isNotEmpty()) {
+            getUserListFromServer(input_search_edittext.text.toString())
+        } else {
+            showMessageDialog(message = getString(R.string.err_msg_empty_user_name))
+        }
     }
 
     private fun getUserListFromServer(name: String) {
