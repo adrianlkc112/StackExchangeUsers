@@ -5,7 +5,7 @@ import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.model.User
 import com.adrianlkc112.stackexchangeusers.viewModel.UserListViewModel
 
-object MainController {
+class MainController {
     private val userDataList = ArrayList<User>()
     val userViewModelList = ArrayList<UserListViewModel>()
 

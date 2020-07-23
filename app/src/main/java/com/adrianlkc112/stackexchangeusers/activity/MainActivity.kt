@@ -18,9 +18,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), UserListCallback {
 
+    private lateinit var mainController: MainController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mainController = MainController()
 
         initLayout()
     }
@@ -42,7 +45,7 @@ class MainActivity : BaseActivity(), UserListCallback {
 
     private fun initUserListView() {
         user_listview.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val userListAdapter = UserListAdapter(this, MainController.userViewModelList, this)
+        val userListAdapter = UserListAdapter(this, mainController.userViewModelList, this)
         user_listview.adapter = userListAdapter
     }
 
@@ -62,7 +65,7 @@ class MainActivity : BaseActivity(), UserListCallback {
                 hideLoading()
             }.subscribe(
                 { response ->
-                    MainController.setUserDataListAndConvertViewModel(this@MainActivity, response.items)
+                    mainController.setUserDataListAndConvertViewModel(this@MainActivity, response.items)
                     user_listview.adapter!!.notifyDataSetChanged()
                 },
                 { error ->
@@ -74,6 +77,6 @@ class MainActivity : BaseActivity(), UserListCallback {
     }
 
     override fun onUserListClick(user_id: Int) {
-        LogD("Test User list clicked: ${user_id} , ${MainController.getSelectedUser(user_id)}")
+        LogD("Test User list clicked: ${user_id} , ${mainController.getSelectedUser(user_id)}")
     }
 }
