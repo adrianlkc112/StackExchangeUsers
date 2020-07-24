@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
+import com.adrianlkc112.stackexchangeusers.extensions.setFadeInAnimation
 import com.adrianlkc112.stackexchangeusers.viewModel.UserDetailListViewModel
 
 class UserDetailsListAdapter(private val context: Context,
@@ -17,6 +18,8 @@ class UserDetailsListAdapter(private val context: Context,
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.itemView.setFadeInAnimation()
+
             val item = dataSource[position]
 
             holder.tvTitle.text = item.title

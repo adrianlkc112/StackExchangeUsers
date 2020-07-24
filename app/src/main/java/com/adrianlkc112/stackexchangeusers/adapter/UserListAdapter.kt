@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.callback.UserListCallback
+import com.adrianlkc112.stackexchangeusers.extensions.setFadeInAnimation
 import com.adrianlkc112.stackexchangeusers.viewModel.UserListViewModel
 
 class UserListAdapter(private val context: Context,
@@ -23,6 +24,8 @@ class UserListAdapter(private val context: Context,
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.itemView.setFadeInAnimation()
+
             val item = dataSource[position]
 
             holder.tvReputation.text = item.reputation
