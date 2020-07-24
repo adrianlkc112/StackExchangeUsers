@@ -1,6 +1,10 @@
 package com.adrianlkc112.stackexchangeusers.controller
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import androidx.core.content.ContextCompat
 import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.model.BadgeCount
 import com.adrianlkc112.stackexchangeusers.model.User
@@ -31,14 +35,28 @@ class UserDetailsController {
                                 if(user != null) DateHelperUtil.convertEpochToDisplay(user.creation_date) else na))
     }
 
-    private fun convertBadgeToDisplay(context: Context, badgeCount: BadgeCount?): String {
-        return if(badgeCount != null) {
-            String.format(context.getString(R.string.badge_gold), badgeCount.gold.toString()) + "\n" +
-                    String.format(context.getString(R.string.badge_silver), badgeCount.silver.toString()) + "\n" +
-                    String.format(context.getString(R.string.badge_bronze), badgeCount.bronze.toString())
+    private fun convertBadgeToDisplay(context: Context, badgeCount: BadgeCount?): SpannableStringBuilder {
+        val builder = SpannableStringBuilder()
+
+        if(badgeCount != null) {
+            val goldStr = SpannableString(String.format(context.getString(R.string.badge_gold), badgeCount.gold.toString()))
+            goldStr.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.badgeGold)), 0, goldStr.length, 0)
+            builder.append(goldStr)
+            builder.append("\n\n")
+
+            val silverStr = SpannableString(String.format(context.getString(R.string.badge_silver), badgeCount.silver.toString()))
+            silverStr.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.badgeSilver)), 0, silverStr.length, 0)
+            builder.append(silverStr)
+            builder.append("\n\n")
+
+            val bronzeStr = SpannableString(String.format(context.getString(R.string.badge_bronze), badgeCount.bronze.toString()))
+            bronzeStr.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.badgeBronze)), 0, bronzeStr.length, 0)
+            builder.append(bronzeStr)
         } else {
-            displayNA(context)
+            builder.append(displayNA(context))
         }
+
+        return builder
     }
 
     private fun displayNA(context: Context): String {

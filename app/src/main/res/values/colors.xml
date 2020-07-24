@@ -7,4 +7,8 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="transparent_button_on_pressed">#30000000</color>
     <color name="userListSelected">#40e6cc85</color>
+
+    <color name="badgeGold">#FFD700</color>
+    <color name="badgeSilver">#C0C0C0</color>
+    <color name="badgeBronze">#CD7F32</color>
 </resources>
