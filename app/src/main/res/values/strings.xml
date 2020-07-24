@@ -7,6 +7,7 @@
     <string name="button_back">Back</string>
 
     <string name="main_search_hint">Search by user name</string>
+    <string name="main_search_hint_min_requirement">(Min. 2 characters)</string>
     <string name="main_reputation_title">Reputation</string>
     <string name="main_user_name_title">User Name</string>
 
@@ -19,6 +20,6 @@
     <string name="user_details_age">Age</string>
     <string name="user_details_create_date">Create Date</string>
 
-    <string name="err_msg_empty_user_name">Please input user name</string>
+    <string name="err_msg_min_user_name">Please input at least 2 characters for searching</string>
     <string name="err_msg_fail_users">Fail to get Users from Server, please retry later.</string>
 </resources>

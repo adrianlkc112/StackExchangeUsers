@@ -10,7 +10,6 @@ import com.adrianlkc112.stackexchangeusers.adapter.UserListAdapter
 import com.adrianlkc112.stackexchangeusers.callback.UserListCallback
 import com.adrianlkc112.stackexchangeusers.controller.MainController
 import com.adrianlkc112.stackexchangeusers.extensions.afterObserveOn
-import com.adrianlkc112.stackexchangeusers.model.User
 import com.adrianlkc112.stackexchangeusers.server.APIService
 import com.adrianlkc112.stackexchangeusers.util.LogD
 import com.adrianlkc112.stackexchangeusers.util.LogE
@@ -31,9 +30,21 @@ class MainActivity : BaseActivity(), UserListCallback {
 
     private fun initLayout() {
         initUserListView()
+        initSearchEditText()
 
         search_button.setOnClickListener {
             doSearch()
+        }
+    }
+
+    private fun initSearchEditText() {
+        input_search_edittext.setOnFocusChangeListener { view, isFocus ->
+            if(isFocus || !input_search_edittext.text.isNullOrEmpty()) {
+                input_search_textinput.hint = getString(R.string.main_search_hint) + " " +
+                        getString(R.string.main_search_hint_min_requirement)
+            } else {
+                input_search_textinput.hint = getString(R.string.main_search_hint)
+            }
         }
 
         input_search_edittext.setOnEditorActionListener{ v, actionId, event ->
@@ -51,10 +62,10 @@ class MainActivity : BaseActivity(), UserListCallback {
     }
 
     private fun doSearch() {
-        if(input_search_edittext.text.isNotEmpty()) {
+        if(input_search_edittext.text?.length?: 0 >= 2) {
             getUserListFromServer(input_search_edittext.text.toString())
         } else {
-            showMessageDialog(message = getString(R.string.err_msg_empty_user_name))
+            showMessageDialog(message = getString(R.string.err_msg_min_user_name))
         }
     }
 

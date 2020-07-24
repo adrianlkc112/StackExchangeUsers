@@ -20,23 +20,30 @@
         android:layout_marginEnd="8dp"
         android:text="@string/button_search"/>
 
-    <EditText
-        android:id="@+id/input_search_edittext"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_search_textinput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/main_search_hint"
-        android:inputType="text"
         android:imeOptions="actionSearch"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@id/search_button"
-        android:layout_alignBaseline="@id/search_button"/>
+        android:layout_alignBaseline="@id/search_button">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_search_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="User Name"
+            android:hint="@string/main_search_hint"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/input_search_edittext"
+        android:layout_below="@id/input_search_textinput"
         android:layout_margin="8dp"
         android:background="@drawable/user_list_cell_border"/>
 
