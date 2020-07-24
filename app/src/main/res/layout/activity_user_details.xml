@@ -12,8 +12,10 @@
 
     <ImageView
         android:id="@+id/avatar_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/user_details_avatar"
         android:layout_below="@id/toolbar_layout"/>
@@ -23,6 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/avatar_imageview"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:padding="1dp"
+        android:background="@drawable/user_list_cell_border"/>
 
 </RelativeLayout>

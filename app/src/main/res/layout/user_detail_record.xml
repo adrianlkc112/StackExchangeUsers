@@ -4,28 +4,28 @@
     android:id="@+id/record_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/selector_user_list">
+    android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/record_reputation"
+        android:id="@+id/record_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
-        android:background="@drawable/user_list_cell_border"
-        android:text="@string/main_reputation_title"
+        android:background="@drawable/user_list_title_border"
+        android:text="@string/main_user_name_title"
+        android:textColor="@android:color/white"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"/>
 
     <TextView
-        android:id="@+id/record_username"
+        android:id="@+id/record_content"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
         android:background="@drawable/user_list_cell_border"
-        android:text="@string/main_user_name_title"
+        android:text="@string/label_not_available"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:paddingStart="8dp"

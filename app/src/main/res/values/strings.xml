@@ -6,10 +6,13 @@
     <string name="button_search">Search</string>
     <string name="button_back">Back</string>
 
+    <string name="label_not_available">N/A</string>
+
     <string name="main_search_hint">Search by user name</string>
     <string name="main_search_hint_min_requirement">(Min. 2 characters)</string>
     <string name="main_reputation_title">Reputation</string>
     <string name="main_user_name_title">User Name</string>
+    <string name="main_no_user_data">No Data</string>
 
     <string name="user_details_page_title">User</string>
     <string name="user_details_avatar">Avatar</string>
@@ -19,6 +22,10 @@
     <string name="user_details_location">Location</string>
     <string name="user_details_age">Age</string>
     <string name="user_details_create_date">Create Date</string>
+
+    <string name="badge_bronze">Bronze: %s</string>
+    <string name="badge_silver">Silver: %s</string>
+    <string name="badge_gold">Gold: %s</string>
 
     <string name="err_msg_min_user_name">Please input at least 2 characters for searching</string>
     <string name="err_msg_fail_users">Fail to get Users from Server, please retry later.</string>
