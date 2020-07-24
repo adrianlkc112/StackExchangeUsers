@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,9 +30,11 @@
         android:layout_below="@id/avatar_imageview"
         android:layout_margin="8dp"
         android:padding="1dp"
+        android:background="@drawable/user_list_outline_border"
         android:outlineProvider="bounds"
         android:elevation="4dp"
         android:scrollbars="vertical"
-        android:background="@drawable/user_list_outline_border"/>
+        android:layoutAnimation="@anim/layout_animation_fade_in"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </RelativeLayout>

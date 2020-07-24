@@ -80,6 +80,7 @@ class MainActivity : BaseActivity(), UserListCallback {
                 { response ->
                     mainController.setDataAndConvertViewModel(this@MainActivity, response.items)
                     user_listview.adapter!!.notifyDataSetChanged()
+                    user_listview.scheduleLayoutAnimation()
                     displayNoData(response.items.isEmpty())
                 },
                 { error ->
