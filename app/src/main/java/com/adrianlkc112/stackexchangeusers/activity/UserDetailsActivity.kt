@@ -30,11 +30,11 @@ class UserDetailsActivity : BaseActivity() {
         if(intent.hasExtra(ARG_USER)) {
             val user = intent.getSerializableExtra(ARG_USER) as User
             userDetailsController.setDataAndConvertViewModel(this, user)
-            LogD("Test User Details: $user")
-            initLayout()
         } else {
             userDetailsController.setDataAndConvertViewModel(this, null)
         }
+
+        initLayout()
     }
 
     private fun initLayout() {
