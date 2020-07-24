@@ -2,6 +2,7 @@ package com.adrianlkc112.stackexchangeusers.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -77,14 +78,25 @@ class MainActivity : BaseActivity(), UserListCallback {
                 hideLoading()
             }.subscribe(
                 { response ->
-                    mainController.setUserDataListAndConvertViewModel(this@MainActivity, response.items)
+                    mainController.setDataAndConvertViewModel(this@MainActivity, response.items)
                     user_listview.adapter!!.notifyDataSetChanged()
+                    displayNoData(response.items.isEmpty())
                 },
                 { error ->
                     LogE(error.toString())
                     showMessageDialog(message = getString(R.string.err_msg_fail_users))
                 }
             )
+        }
+    }
+
+    private fun displayNoData(isNoData: Boolean) {
+        if(isNoData) {
+            user_listview.visibility = View.GONE
+            user_no_data_textview.visibility = View.VISIBLE
+        } else {
+            user_listview.visibility = View.VISIBLE
+            user_no_data_textview.visibility = View.GONE
         }
     }
 

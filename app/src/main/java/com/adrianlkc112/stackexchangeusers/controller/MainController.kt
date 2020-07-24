@@ -9,7 +9,7 @@ class MainController {
     private val userDataList = ArrayList<User>()
     val userViewModelList = ArrayList<UserListViewModel>()
 
-    fun setUserDataListAndConvertViewModel(context: Context, inputList: List<User>)  {
+    fun setDataAndConvertViewModel(context: Context, inputList: List<User>)  {
         userViewModelList.clear()
         userDataList.clear()
         userDataList.addAll(inputList)
