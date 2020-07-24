@@ -12,7 +12,7 @@ class MainController {
     fun setDataAndConvertViewModel(context: Context, inputList: List<User>)  {
         userViewModelList.clear()
         userDataList.clear()
-        userDataList.addAll(inputList)
+        userDataList.addAll(inputList.sortedBy { it.display_name })
 
         userViewModelList.add(UserListViewModel(UserListViewModel.VIEW_TYPE_TITLE,
                             -1,
