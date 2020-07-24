@@ -42,16 +42,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        style="@style/UserListStyle"
         android:id="@+id/user_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/input_search_textinput"
-        android:layout_margin="8dp"
-        android:padding="1dp"
-        android:background="@drawable/user_list_outline_border"
         android:outlineProvider="bounds"
         android:elevation="4dp"
-        android:scrollbars="vertical"
         android:layoutAnimation="@anim/layout_animation_fall_down"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:visibility="gone"/>
