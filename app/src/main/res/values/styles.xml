@@ -11,7 +11,7 @@
     </style>
 
     <style name="SelectableItemTheme">
-        <item name="colorControlHighlight">@color/transparent_button_on_pressed</item>
+        <item name="colorControlHighlight">@color/userListSelected</item>
     </style>
 
     <style name="SelectableItemBackground">
