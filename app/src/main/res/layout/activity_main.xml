@@ -46,7 +46,10 @@
         android:layout_below="@id/input_search_textinput"
         android:layout_margin="8dp"
         android:padding="1dp"
-        android:background="@drawable/user_list_cell_border"
+        android:background="@drawable/user_list_outline_border"
+        android:outlineProvider="bounds"
+        android:elevation="4dp"
+        android:scrollbars="vertical"
         android:visibility="gone"/>
 
     <TextView

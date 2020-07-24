@@ -18,7 +18,9 @@
         android:layout_marginBottom="8dp"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/user_details_avatar"
-        android:layout_below="@id/toolbar_layout"/>
+        android:layout_below="@id/toolbar_layout"
+        android:outlineProvider="bounds"
+        android:elevation="4dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_listview"
@@ -27,6 +29,9 @@
         android:layout_below="@id/avatar_imageview"
         android:layout_margin="8dp"
         android:padding="1dp"
-        android:background="@drawable/user_list_cell_border"/>
+        android:outlineProvider="bounds"
+        android:elevation="4dp"
+        android:scrollbars="vertical"
+        android:background="@drawable/user_list_outline_border"/>
 
 </RelativeLayout>
