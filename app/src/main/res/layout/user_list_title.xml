@@ -7,31 +7,19 @@
     android:orientation="horizontal">
 
     <TextView
+        style="@style/UserRecordTitleStyle"
         android:id="@+id/record_reputation"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:background="@drawable/user_list_title_border"
-        android:text="@string/main_reputation_title"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"/>
+        android:text="@string/main_reputation_title"/>
 
     <TextView
+        style="@style/UserRecordTitleStyle"
         android:id="@+id/record_username"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:background="@drawable/user_list_title_border"
-        android:text="@string/main_user_name_title"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"/>
+        android:text="@string/main_user_name_title"/>
 
 </LinearLayout>

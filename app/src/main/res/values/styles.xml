@@ -19,4 +19,22 @@
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
+    <style name="UserRecordContentStyle">
+        <item name="android:background">@drawable/user_list_cell_border</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <style name="UserRecordTitleStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/user_list_title_border</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
 </resources>
