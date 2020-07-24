@@ -28,8 +28,6 @@
 -keep class okhttp3.* { *;}
 -dontwarn okio.
 
--dontwarn hoang8f.**
-
 ########--------Retrofit + RxJava--------#########
 -dontwarn retrofit.**
 -keep class retrofit.* { *; }
@@ -58,3 +56,7 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
+# Keep Model
+-keep class com.adrianlkc112.stackexchangeusers.model.* { *; }
+-keep class com.adrianlkc112.stackexchangeusers.viewModel.* { *; }
