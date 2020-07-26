@@ -44,16 +44,20 @@ class UserDetailsActivity : BaseActivity() {
     }
 
     private fun initAvatar() {
-        Picasso.get().load(userDetailsController.profileImage)
-            .fit().centerInside()
-            .into(avatar_imageview, object : Callback {
-                override fun onSuccess() {
-                }
+        if(userDetailsController.profileImage.isNotEmpty()) {
+            Picasso.get().load(userDetailsController.profileImage)
+                .fit().centerInside()
+                .into(avatar_imageview, object : Callback {
+                    override fun onSuccess() {
+                    }
 
-                override fun onError(e: Exception?) {
-                    avatar_imageview.setImageResource(R.drawable.empty_avatar_place_holder)
-                }
-            })
+                    override fun onError(e: Exception?) {
+                        avatar_imageview.setImageResource(R.drawable.empty_avatar_place_holder)
+                    }
+                })
+        } else {
+            avatar_imageview.setImageResource(R.drawable.empty_avatar_place_holder)
+        }
     }
 
     private fun initUserDetailListView() {
