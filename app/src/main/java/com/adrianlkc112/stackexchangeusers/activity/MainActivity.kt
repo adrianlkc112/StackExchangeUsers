@@ -15,7 +15,10 @@ import com.adrianlkc112.stackexchangeusers.server.APIService
 import com.adrianlkc112.stackexchangeusers.util.LogD
 import com.adrianlkc112.stackexchangeusers.util.LogE
 import kotlinx.android.synthetic.main.activity_main.*
-
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.security.ProviderInstaller
 
 class MainActivity : BaseActivity(), UserListCallback {
 
@@ -25,6 +28,8 @@ class MainActivity : BaseActivity(), UserListCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainController = MainController()
+
+        installTls12()              //handle devices that missing protocol TLSv1.2 and result in movie api SSLHandshakeException
 
         initLayout()
     }
@@ -108,5 +113,16 @@ class MainActivity : BaseActivity(), UserListCallback {
         val intent = Intent(this, UserDetailsActivity::class.java)
         intent.putExtra(UserDetailsActivity.ARG_USER, user)
         startActivity(intent)
+    }
+
+    private fun installTls12() {    //https://ankushg.com/posts/tls-1.2-on-android/
+        try {
+            ProviderInstaller.installIfNeeded(this)
+        } catch (e: GooglePlayServicesRepairableException) {
+            // Prompt the user to install/update/enable Google Play services.
+            GoogleApiAvailability.getInstance().showErrorNotification(this, e.connectionStatusCode)
+        } catch (e: GooglePlayServicesNotAvailableException) {
+            // Indicates a non-recoverable error: let the user know.
+        }
     }
 }

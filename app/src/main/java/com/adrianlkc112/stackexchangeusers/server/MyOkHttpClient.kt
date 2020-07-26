@@ -1,6 +1,7 @@
 package com.adrianlkc112.stackexchangeusers.server
 
 import com.adrianlkc112.stackexchangeusers.BuildConfig
+import com.cityline.server.ssl.Tls12SocketFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -18,7 +19,7 @@ class MyOkHttpClient {
                         addInterceptor(logging)
                     }
                 }
-                return builder.build()
+                return (Tls12SocketFactory.enableTls12(builder)).build()
 
             } catch (e: Exception) {
                 throw RuntimeException(e)

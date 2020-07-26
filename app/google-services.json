@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "303401105487",
+    "firebase_url": "https://stackexchangeusers.firebaseio.com",
+    "project_id": "stackexchangeusers",
+    "storage_bucket": "stackexchangeusers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303401105487:android:e2ed7f1f2fd5f4d39e923a",
+        "android_client_info": {
+          "package_name": "com.adrianlkc112.stackexchangeusers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303401105487-hqeqqh08vl5sqab8lfoocetpbv3e4gcs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPVYUjX0pw1zw18AcSJmh2WMj9i05rs4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303401105487-hqeqqh08vl5sqab8lfoocetpbv3e4gcs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
