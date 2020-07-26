@@ -5,6 +5,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.adrianlkc112.stackexchangeusers.activity.UserDetailsActivity
 import com.adrianlkc112.stackexchangeusers.enum.UserType
@@ -25,6 +26,7 @@ import org.junit.runner.RunWith
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@LargeTest
 @RunWith(AndroidJUnit4::class)
 class UserDetailsActivityTest {
     @get:Rule

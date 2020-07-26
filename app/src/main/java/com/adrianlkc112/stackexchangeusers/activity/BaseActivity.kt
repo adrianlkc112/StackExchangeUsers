@@ -59,7 +59,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected fun isLoading(): Boolean {
+    fun isLoading(): Boolean {
         return hud?.isShowing?: false
     }
 
