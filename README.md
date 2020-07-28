@@ -8,4 +8,11 @@ Task: Build an app that connects to the StackExchange API for search and display
 * Display up to 20 users alphabetically and show their reputation and username.  
 * When tapped, open a new Activity to display more information (e.g. Profile Image, Badges, Location, Age etc.) about the
 user.
+
+## Code
+* Using Kotlin 
+* API request and handling with Retrofit2 & RxJava2
+* Load profile image using Picasso
+* Display Local DateTime with ThreeTenAbp
 * Minimum Android API 19
+* UI Test with Espresso
