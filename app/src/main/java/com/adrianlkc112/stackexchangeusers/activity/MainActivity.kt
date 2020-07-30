@@ -10,6 +10,7 @@ import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.adapter.UserListAdapter
 import com.adrianlkc112.stackexchangeusers.callback.UserListCallback
 import com.adrianlkc112.stackexchangeusers.controller.MainController
+import com.adrianlkc112.stackexchangeusers.controller.saveMainController
 import com.adrianlkc112.stackexchangeusers.extensions.afterObserveOn
 import com.adrianlkc112.stackexchangeusers.server.APIService
 import com.adrianlkc112.stackexchangeusers.util.LogD
@@ -27,11 +28,16 @@ class MainActivity : BaseActivity(), UserListCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainController = MainController()
+        mainController = MainController(savedInstanceState)
 
         installTls12()              //handle devices that missing protocol TLSv1.2 and result in movie api SSLHandshakeException
 
         initLayout()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.saveMainController(mainController)
     }
 
     private fun initLayout() {
@@ -44,6 +50,8 @@ class MainActivity : BaseActivity(), UserListCallback {
     }
 
     private fun initSearchEditText() {
+        input_search_edittext.setText(mainController.userInputSearchText)
+
         input_search_edittext.setOnFocusChangeListener { view, isFocus ->
             if(isFocus || !input_search_edittext.text.isNullOrEmpty()) {
                 input_search_textinput.hint = getString(R.string.main_search_hint) + " " +
@@ -65,6 +73,8 @@ class MainActivity : BaseActivity(), UserListCallback {
         user_listview.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val userListAdapter = UserListAdapter(this, mainController.userViewModelList, this)
         user_listview.adapter = userListAdapter
+        user_listview.scheduleLayoutAnimation()
+        displayNoData(mainController.userViewModelList.isEmpty())
     }
 
     private fun doSearch() {
@@ -83,7 +93,7 @@ class MainActivity : BaseActivity(), UserListCallback {
                 hideLoading()
             }.subscribe(
                 { response ->
-                    mainController.setDataAndConvertViewModel(this@MainActivity, response.items)
+                    mainController.setDataAndConvertViewModel(this@MainActivity, response.items, name)
                     user_listview.adapter!!.notifyDataSetChanged()
                     user_listview.scheduleLayoutAnimation()
                     displayNoData(response.items.isEmpty())
