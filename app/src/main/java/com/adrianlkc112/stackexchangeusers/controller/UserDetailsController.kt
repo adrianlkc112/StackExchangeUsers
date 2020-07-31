@@ -1,22 +1,41 @@
 package com.adrianlkc112.stackexchangeusers.controller
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import com.adrianlkc112.stackexchangeusers.R
+import com.adrianlkc112.stackexchangeusers.activity.UserDetailsActivity
 import com.adrianlkc112.stackexchangeusers.model.BadgeCount
 import com.adrianlkc112.stackexchangeusers.model.User
 import com.adrianlkc112.stackexchangeusers.util.DateHelperUtil
 import com.adrianlkc112.stackexchangeusers.viewModel.UserDetailListViewModel
 
-class UserDetailsController {
+class UserDetailsController(context: Context, savedInstanceState: Bundle?, intent: Intent) {
     var profileImage: String = ""
         private set
     val userDetailsViewModelList = ArrayList<UserDetailListViewModel>()
 
-    fun setDataAndConvertViewModel(context: Context, user: User?) {
+    init {
+        if (savedInstanceState != null) {
+            profileImage = savedInstanceState.getString("userDetails_profileImage", "")
+
+            userDetailsViewModelList.clear()
+            userDetailsViewModelList.addAll(savedInstanceState.getSerializable("userDetails_userDetailsViewModelList") as ArrayList<UserDetailListViewModel>)
+        } else {
+            if (intent.hasExtra(UserDetailsActivity.ARG_USER)) {
+                val user = intent.getSerializableExtra(UserDetailsActivity.ARG_USER) as User
+                setDataAndConvertViewModel(context, user)
+            } else {
+                setDataAndConvertViewModel(context, null)
+            }
+        }
+    }
+
+    private fun setDataAndConvertViewModel(context: Context, user: User?) {
         this.profileImage = user?.profile_image?: ""
         val na = displayNA(context)
 
@@ -62,4 +81,9 @@ class UserDetailsController {
     private fun displayNA(context: Context): String {
         return context.getString(R.string.label_not_available)
     }
+}
+
+fun Bundle.saveUserDetailsController(userDetailsController: UserDetailsController) {
+    putString("userDetails_profileImage", userDetailsController.profileImage)
+    putSerializable("userDetails_userDetailsViewModelList", userDetailsController.userDetailsViewModelList)
 }

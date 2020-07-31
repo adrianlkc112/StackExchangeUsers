@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.adapter.UserDetailsListAdapter
 import com.adrianlkc112.stackexchangeusers.controller.UserDetailsController
-import com.adrianlkc112.stackexchangeusers.model.User
-import com.adrianlkc112.stackexchangeusers.util.LogD
+import com.adrianlkc112.stackexchangeusers.controller.saveUserDetailsController
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_user_details.*
@@ -24,17 +23,14 @@ class UserDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
-
-        userDetailsController = UserDetailsController()
-
-        if(intent.hasExtra(ARG_USER)) {
-            val user = intent.getSerializableExtra(ARG_USER) as User
-            userDetailsController.setDataAndConvertViewModel(this, user)
-        } else {
-            userDetailsController.setDataAndConvertViewModel(this, null)
-        }
+        userDetailsController = UserDetailsController(this, savedInstanceState, intent)
 
         initLayout()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.saveUserDetailsController(userDetailsController)
     }
 
     private fun initLayout() {
@@ -64,5 +60,6 @@ class UserDetailsActivity : BaseActivity() {
         user_listview.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val userListAdapter = UserDetailsListAdapter(this, userDetailsController.userDetailsViewModelList)
         user_listview.adapter = userListAdapter
+        user_listview.scheduleLayoutAnimation()
     }
 }

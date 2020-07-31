@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
+import com.adrianlkc112.stackexchangeusers.util.SpannableStringBuilderUtil
 import com.adrianlkc112.stackexchangeusers.viewModel.UserDetailListViewModel
 
 class UserDetailsListAdapter(private val context: Context,
@@ -19,8 +20,8 @@ class UserDetailsListAdapter(private val context: Context,
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = dataSource[position]
 
-            holder.tvTitle.text = item.title
-            holder.tvContent.text = item.content
+            holder.tvTitle.text = SpannableStringBuilderUtil.jsonString2SpannableString(item.titleJsonString)
+            holder.tvContent.text = SpannableStringBuilderUtil.jsonString2SpannableString(item.contentJsonString)
         }
 
         override fun getItemCount(): Int {

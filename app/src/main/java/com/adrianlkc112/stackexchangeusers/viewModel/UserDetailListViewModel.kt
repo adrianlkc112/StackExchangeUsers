@@ -1,11 +1,20 @@
 package com.adrianlkc112.stackexchangeusers.viewModel
 
 import android.text.SpannableStringBuilder
+import com.adrianlkc112.stackexchangeusers.util.SpannableStringBuilderUtil
+import java.io.Serializable
 
-data class UserDetailListViewModel (
-    val title: SpannableStringBuilder,
-    val content: SpannableStringBuilder
-) {
-    constructor(title: String, content: String) : this(SpannableStringBuilder(title), SpannableStringBuilder(content))
-    constructor(title: String, content: SpannableStringBuilder) : this(SpannableStringBuilder(title), content)
+class UserDetailListViewModel: Serializable {
+    val titleJsonString: String
+    val contentJsonString: String
+
+    constructor(titleString: String, contentString: String) {
+        titleJsonString = SpannableStringBuilderUtil.spannableString2JsonString(SpannableStringBuilder(titleString))
+        contentJsonString = SpannableStringBuilderUtil.spannableString2JsonString(SpannableStringBuilder(contentString))
+    }
+
+    constructor(titleString: String, contentSSB: SpannableStringBuilder) {
+        titleJsonString = SpannableStringBuilderUtil.spannableString2JsonString(SpannableStringBuilder(titleString))
+        contentJsonString = SpannableStringBuilderUtil.spannableString2JsonString(contentSSB)
+    }
 }
