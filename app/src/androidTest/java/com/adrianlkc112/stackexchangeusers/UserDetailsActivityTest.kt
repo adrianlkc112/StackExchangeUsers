@@ -14,6 +14,7 @@ import com.adrianlkc112.stackexchangeusers.matcher.ImageViewMatcher
 import com.adrianlkc112.stackexchangeusers.matcher.RecyclerViewMatcher
 import com.adrianlkc112.stackexchangeusers.model.BadgeCount
 import com.adrianlkc112.stackexchangeusers.model.User
+import com.adrianlkc112.stackexchangeusers.util.ScreenUtil
 import org.hamcrest.Matchers.containsString
 import org.junit.Before
 import org.junit.Rule
@@ -37,7 +38,7 @@ class UserDetailsActivityTest {
     }
 
     @Test
-    fun testValidUser() {
+    fun testValidUserWithRotation() {
         val intent = Intent()
         intent.putExtra(UserDetailsActivity.ARG_USER, fakeUser())
         mActivityRule.launchActivity(intent)
@@ -70,6 +71,15 @@ class UserDetailsActivityTest {
         //Creation Date
         onView(RecyclerViewMatcher.recyclerViewWithId(R.id.user_listview).viewHolderViewAtPosition(5, R.id.record_content))
             .check(matches(withText(containsString("2020-07-26"))))
+
+        //Rotation and double check some of the values
+        ScreenUtil().rotateScreen(mActivityRule.activity)
+        Thread.sleep(1000)
+
+        onView(withId(R.id.avatar_imageview)).check(matches(ImageViewMatcher.DrawableMatcher(R.drawable.test_avatar_image)))
+
+        onView(RecyclerViewMatcher.recyclerViewWithId(R.id.user_listview).viewHolderViewAtPosition(0, R.id.record_content))
+            .check(matches(withText("Fake User")))
     }
 
     @Test

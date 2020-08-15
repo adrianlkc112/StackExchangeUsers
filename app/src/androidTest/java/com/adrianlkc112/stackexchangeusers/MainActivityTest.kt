@@ -9,7 +9,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -19,6 +18,7 @@ import com.adrianlkc112.stackexchangeusers.activity.MainActivity
 import com.adrianlkc112.stackexchangeusers.activity.UserDetailsActivity
 import com.adrianlkc112.stackexchangeusers.matcher.IgnoreCaseTextMatcher
 import com.adrianlkc112.stackexchangeusers.matcher.RecyclerViewMatcher
+import com.adrianlkc112.stackexchangeusers.util.ScreenUtil
 import org.hamcrest.Matchers.containsString
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -56,7 +56,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun testInputTextAndSearchWithValidResponse() {
+    fun testSearchWithValidResponseAndItemClick() {
         onView(withId(R.id.input_search_edittext))
             .perform(clearText(),typeText("test"))
         onView(withId(R.id.search_button))
@@ -79,7 +79,31 @@ class MainActivityTest {
     }
 
     @Test
-    fun testInputTextAndSearchWithEmptyResponse() {
+    fun testSearchWithValidResponseAndRotation() {
+        onView(withId(R.id.input_search_edittext))
+            .perform(clearText(),typeText("test"))
+        onView(withId(R.id.search_button))
+            .perform(click())
+
+        waitFinishProcessing()
+        onView(withId(R.id.user_listview)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+
+        if (getRVCount() > 1) {     //position 0 is title
+            onView(RecyclerViewMatcher.recyclerViewWithId(R.id.user_listview).viewHolderViewAtPosition(1, R.id.record_username))
+                .check(matches(IgnoreCaseTextMatcher.withText(containsString("test"))))
+
+            ScreenUtil().rotateScreen(mActivityRule.activity)
+            Thread.sleep(1000)
+
+            onView(RecyclerViewMatcher.recyclerViewWithId(R.id.user_listview).viewHolderViewAtPosition(1, R.id.record_username))
+                .check(matches(IgnoreCaseTextMatcher.withText(containsString("test"))))
+        } else {
+            throw Exception("Fail testInputTextAndSearchWithValidResponse: RecyclerView is empty")
+        }
+    }
+
+    @Test
+    fun testSearchWithEmptyResponse() {
         onView(withId(R.id.input_search_edittext))
             .perform(clearText(),typeText("test1234567890"))
         onView(withId(R.id.search_button))
