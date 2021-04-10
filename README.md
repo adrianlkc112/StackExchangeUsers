@@ -11,6 +11,7 @@ user.
 
 ## Code
 * Using Kotlin 
+* ViewModel with stateHandle + Data Binding
 * API request and handling with Retrofit2 & RxJava2
 * Load profile image using Picasso
 * Display Local DateTime with ThreeTenAbp
