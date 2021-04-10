@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.callback.UserListCallback
-import com.adrianlkc112.stackexchangeusers.viewModel.UserListViewModel
+import com.adrianlkc112.stackexchangeusers.viewData.UserListViewData
 
 class UserListAdapter(private val context: Context,
-                      private val dataSource: List<UserListViewModel>,
+                      private val dataSource: List<UserListViewData>,
                       private val callback: UserListCallback) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            return if(viewType == UserListViewModel.VIEW_TYPE_TITLE) {
+            return if(viewType == UserListViewData.VIEW_TYPE_TITLE) {
                  ViewHolder(LayoutInflater.from(context).inflate(R.layout.user_list_title, parent, false))
             } else {
                  ViewHolder(LayoutInflater.from(context).inflate(R.layout.user_list_record, parent, false))
@@ -28,7 +28,7 @@ class UserListAdapter(private val context: Context,
             holder.tvReputation.text = item.reputation
             holder.tvUserName.text = item.display_name
 
-            if(item.viewType == UserListViewModel.VIEW_TYPE_CONTENT) {
+            if(item.viewType == UserListViewData.VIEW_TYPE_CONTENT) {
                 holder.recordLayout.setOnClickListener {
                     callback.onUserListClick(item.user_id)
                 }

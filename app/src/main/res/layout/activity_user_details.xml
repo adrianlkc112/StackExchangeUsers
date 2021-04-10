@@ -1,37 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<?xml version="1.0" encoding="utf-8"?><layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.UserDetailsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/toolbar_layout"
-        layout="@layout/toolbar"/>
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.adrianlkc112.stackexchangeusers.viewModel.UserDetailsViewModel" />
+    </data>
 
-    <ImageView
-        android:id="@+id/avatar_imageview"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/user_details_avatar"
-        android:layout_below="@id/toolbar_layout"
-        android:outlineProvider="bounds"
-        android:elevation="4dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        style="@style/UserListStyle"
-        android:id="@+id/user_listview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/avatar_imageview"
-        android:outlineProvider="bounds"
-        android:elevation="4dp"
-        android:layoutAnimation="@anim/layout_animation_fade_in"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent"
+        tools:context=".activity.UserDetailsActivity">
 
-</RelativeLayout>
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/toolbar"/>
+
+        <ImageView
+            android:id="@+id/avatar_imageview"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/user_details_avatar"
+            android:layout_below="@id/toolbar_layout"
+            android:outlineProvider="bounds"
+            android:elevation="4dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            style="@style/UserListStyle"
+            android:id="@+id/user_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avatar_imageview"
+            android:outlineProvider="bounds"
+            android:elevation="4dp"
+            android:layoutAnimation="@anim/layout_animation_fade_in"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </RelativeLayout>
+</layout>

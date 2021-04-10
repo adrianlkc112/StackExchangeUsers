@@ -1,10 +1,10 @@
-package com.adrianlkc112.stackexchangeusers.viewModel
+package com.adrianlkc112.stackexchangeusers.viewData
 
 import android.text.SpannableStringBuilder
 import com.adrianlkc112.stackexchangeusers.util.SpannableStringBuilderUtil
 import java.io.Serializable
 
-class UserDetailListViewModel: Serializable {
+class UserDetailListViewData: Serializable {
     val titleJsonString: String
     val contentJsonString: String
 

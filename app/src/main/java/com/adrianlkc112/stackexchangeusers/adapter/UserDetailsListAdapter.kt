@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.util.SpannableStringBuilderUtil
-import com.adrianlkc112.stackexchangeusers.viewModel.UserDetailListViewModel
+import com.adrianlkc112.stackexchangeusers.viewData.UserDetailListViewData
 
 class UserDetailsListAdapter(private val context: Context,
-                             private val dataSource: List<UserDetailListViewModel>) : RecyclerView.Adapter<UserDetailsListAdapter.ViewHolder>() {
+                             private val dataSource: List<UserDetailListViewData>) : RecyclerView.Adapter<UserDetailsListAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(LayoutInflater.from(context).inflate(R.layout.user_detail_record, parent, false))

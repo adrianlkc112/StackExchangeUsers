@@ -1,8 +1,8 @@
-package com.adrianlkc112.stackexchangeusers.viewModel
+package com.adrianlkc112.stackexchangeusers.viewData
 
 import java.io.Serializable
 
-data class UserListViewModel (
+data class UserListViewData (
     val viewType: Int,
     val user_id: Int,
     val display_name: String,

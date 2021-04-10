@@ -4,31 +4,35 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrianlkc112.stackexchangeusers.R
 import com.adrianlkc112.stackexchangeusers.adapter.UserListAdapter
 import com.adrianlkc112.stackexchangeusers.callback.UserListCallback
-import com.adrianlkc112.stackexchangeusers.controller.MainController
-import com.adrianlkc112.stackexchangeusers.controller.saveMainController
+import com.adrianlkc112.stackexchangeusers.databinding.ActivityMainBinding
 import com.adrianlkc112.stackexchangeusers.extensions.afterObserveOn
 import com.adrianlkc112.stackexchangeusers.server.APIService
 import com.adrianlkc112.stackexchangeusers.util.LogD
 import com.adrianlkc112.stackexchangeusers.util.LogE
+import com.adrianlkc112.stackexchangeusers.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.security.ProviderInstaller
 
-class MainActivity : BaseActivity(), UserListCallback {
+class MainActivity : BaseActivity() {
 
-    private lateinit var mainController: MainController
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        mainController = MainController(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        binding.viewmodel = viewModel
 
         installTls12()              //handle devices that missing protocol TLSv1.2 and result in movie api SSLHandshakeException
 
@@ -37,7 +41,7 @@ class MainActivity : BaseActivity(), UserListCallback {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.saveMainController(mainController)
+        viewModel.saveState()
     }
 
     private fun initLayout() {
@@ -50,14 +54,13 @@ class MainActivity : BaseActivity(), UserListCallback {
     }
 
     private fun initSearchEditText() {
-        input_search_edittext.setText(mainController.userInputSearchText)
-
+        viewModel.userSearchHint.value = getString(R.string.main_search_hint)
         input_search_edittext.setOnFocusChangeListener { view, isFocus ->
             if(isFocus || !input_search_edittext.text.isNullOrEmpty()) {
-                input_search_textinput.hint = getString(R.string.main_search_hint) + " " +
+                viewModel.userSearchHint.value = getString(R.string.main_search_hint) + " " +
                         getString(R.string.main_search_hint_min_requirement)
             } else {
-                input_search_textinput.hint = getString(R.string.main_search_hint)
+                viewModel.userSearchHint.value = getString(R.string.main_search_hint)
             }
         }
 
@@ -71,15 +74,25 @@ class MainActivity : BaseActivity(), UserListCallback {
 
     private fun initUserListView() {
         user_listview.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val userListAdapter = UserListAdapter(this, mainController.userViewModelList, this)
+        val userListAdapter = UserListAdapter(this, viewModel.userListViewDataList, object: UserListCallback {
+            override fun onUserListClick(user_id: Int) {
+                val user = viewModel.getSelectedUser(user_id)
+                LogD("Test User list clicked: ${user_id} , $user")
+
+                val intent = Intent(this@MainActivity, UserDetailsActivity::class.java)
+                intent.putExtra(UserDetailsActivity.ARG_USER, user)
+                startActivity(intent)
+            }
+        })
         user_listview.adapter = userListAdapter
         user_listview.scheduleLayoutAnimation()
-        displayNoData(mainController.userViewModelList.isEmpty())
+        displayNoData(viewModel.userListViewDataList.isEmpty())
     }
 
     private fun doSearch() {
-        if(input_search_edittext.text?.length?: 0 >= 2) {
-            getUserListFromServer(input_search_edittext.text.toString())
+        val userInputText = viewModel.userSearchInputText.value
+        if(userInputText != null && userInputText.length >= 2) {
+            getUserListFromServer(userInputText)
         } else {
             showMessageDialog(message = getString(R.string.err_msg_min_user_name))
         }
@@ -93,7 +106,7 @@ class MainActivity : BaseActivity(), UserListCallback {
                 hideLoading()
             }.subscribe(
                 { response ->
-                    mainController.setDataAndConvertViewModel(this@MainActivity, response.items, name)
+                    viewModel.setDataAndConvertViewModel(this@MainActivity, response.items)
                     user_listview.adapter!!.notifyDataSetChanged()
                     user_listview.scheduleLayoutAnimation()
                     displayNoData(response.items.isEmpty())
@@ -114,15 +127,6 @@ class MainActivity : BaseActivity(), UserListCallback {
             user_listview.visibility = View.VISIBLE
             user_no_data_textview.visibility = View.GONE
         }
-    }
-
-    override fun onUserListClick(user_id: Int) {
-        val user = mainController.getSelectedUser(user_id)
-        LogD("Test User list clicked: ${user_id} , $user")
-
-        val intent = Intent(this, UserDetailsActivity::class.java)
-        intent.putExtra(UserDetailsActivity.ARG_USER, user)
-        startActivity(intent)
     }
 
     private fun installTls12() {    //https://ankushg.com/posts/tls-1.2-on-android/

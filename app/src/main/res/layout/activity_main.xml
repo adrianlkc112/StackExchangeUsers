@@ -1,66 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/toolbar_layout"
-        layout="@layout/toolbar"/>
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.adrianlkc112.stackexchangeusers.viewModel.MainViewModel" />
+    </data>
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/toolbar_layout"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/button_search"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_search_textinput"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_toStartOf="@id/search_button"
-        android:layout_alignBottom="@id/search_button">
+        android:layout_height="match_parent"
+        tools:context=".activity.MainActivity">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_search_edittext"
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/toolbar"/>
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/toolbar_layout"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/button_search"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_search_textinput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="User Name"
-            android:hint="@string/main_search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/search_button"
+            android:layout_alignBottom="@id/search_button">
 
-    <androidx.recyclerview.widget.RecyclerView
-        style="@style/UserListStyle"
-        android:id="@+id/user_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_search_textinput"
-        android:outlineProvider="bounds"
-        android:elevation="4dp"
-        android:layoutAnimation="@anim/layout_animation_fall_down"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:visibility="gone"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_search_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="User Name"
+                android:hint="@{viewmodel.userSearchHint}"
+                android:text="@={viewmodel.userSearchInputText}"
+                android:imeOptions="actionSearch"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/user_no_data_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:text="@string/main_no_user_data"/>
+        <androidx.recyclerview.widget.RecyclerView
+            style="@style/UserListStyle"
+            android:id="@+id/user_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_search_textinput"
+            android:outlineProvider="bounds"
+            android:elevation="4dp"
+            android:layoutAnimation="@anim/layout_animation_fall_down"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:visibility="gone"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/user_no_data_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="@string/main_no_user_data"/>
+
+    </RelativeLayout>
+
+</layout>
